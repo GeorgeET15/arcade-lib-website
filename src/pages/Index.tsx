@@ -243,8 +243,13 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-            <div className="code-block">
-              <pre className="language-c text-sm font-code bg-pixel-navy text-pixel-pink border-pixel-pink border-2 rounded-none px-4 py-6 pixel-border">
+            <div className=" shadow-lg bg-pixel-navy border-2 border-pixel-yellow relative rounded-none px-4 py-6 pixel-border">
+              <div className="flex gap-1 mb-4">
+                <span className="w-3 h-3 rounded-full bg-pixel-pink inline-block" />
+                <span className="w-3 h-3 rounded-full bg-pixel-yellow inline-block" />
+                <span className="w-3 h-3 rounded-full bg-pixel-teal inline-block" />
+              </div>
+              <pre className="language-c text-sm font-code= text-pixel-pink  ">
                 <code>
                   {`#include "arcade.h"
 

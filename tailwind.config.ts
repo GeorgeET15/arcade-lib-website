@@ -1,4 +1,3 @@
-// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 export default {
@@ -97,6 +96,10 @@ export default {
           "0%": { transform: "translateY(-100vh)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },
         },
+        buttonAppear: {
+          "0%": { opacity: "0", transform: "scale(0.8)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -104,6 +107,7 @@ export default {
         "pixel-float": "pixelFloat 2s ease-in-out infinite",
         "pixel-spin": "pixelSpin 3s linear infinite",
         "fall-in": "fallIn 3s ease-out forwards",
+        "button-appear": "buttonAppear 0.5s ease-out forwards",
       },
     },
   },

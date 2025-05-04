@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Big Pixel Logo</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0; /* Light gray background for contrast */
+      }
+      .logo {
+        width: 512px; /* Scaled up from 32px */
+        height: 512px;
+        background: #00c4b4; /* Teal background */
+        border: 32px solid #ff7bdf; /* Pink border, scaled proportionally (2px -> 32px) */
+        box-shadow: 32px 32px 0 #ff7bdf; /* Pink shadow, scaled */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo span {
+        color: #ffff00; /* Yellow text */
+        font-family: "Press Start 2P", monospace; /* Pixel font */
+        font-size: 384px; /* Scaled up from 24px */
+        font-weight: bold;
+        letter-spacing: 0.2em; /* Tracking */
+        text-shadow: 16px 16px 0 rgba(0, 0, 0, 0.5); /* Drop shadow, scaled */
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo">
+      <span>A</span>
+    </div>
+  </body>
+</html>

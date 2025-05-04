@@ -15,25 +15,6 @@
     overflow-x: hidden;
   }
 
-  .scanlines {
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 40;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0) 0px,
-      rgba(0, 0, 0, 0) 1px,
-      rgba(0, 0, 0, 0.1) 2.5px,
-      rgba(0, 0, 0, 0.12) 4px
-    );
-    mix-blend-mode: multiply;
-    animation: scanlines 0.25s steps(2, jump-none) infinite;
-  }
-
   .pixel-shadow {
     text-shadow: 2px 0 #14c9c9, 0 2px #ff7bdf, 2px 2px #ffda41, 0 0px #202010;
   }
@@ -44,18 +25,6 @@
 
   code {
     @apply font-code text-sm;
-  }
-
-  /* Arcade shared background utility */
-  .arcade-bg {
-    background-image: repeating-linear-gradient(
-      135deg,
-      #222835 0px,
-      #222835 3px,
-      #181e2e 3px,
-      #181e2e 6px
-    );
-    background-color: #161b22;
   }
 }
 
