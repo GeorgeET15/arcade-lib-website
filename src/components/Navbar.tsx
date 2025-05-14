@@ -83,7 +83,7 @@ const Navbar = () => {
                   h-10 bg-gradient-to-r from-pixel-pink to-pixel-teal text-pixel-dark 
                   border-4 border-pixel-yellow rounded-none uppercase font-pixel 
                   px-4 py-2 hover:scale-110 hover:rotate-2 hover:brightness-125 
-                  active:scale-95 shake animate-pulse 
+                  active:scale-95 shake
                   shadow-[0_4px_8px_rgba(255,123,223,0.5)] transition-all duration-200 
                   pixel-border flex items-center
                 "
