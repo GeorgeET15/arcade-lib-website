@@ -8,131 +8,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
+import { sidebarSections, contentMap } from "../data";
 
 const DocumentationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-
-  const sidebarSections = [
-    {
-      title: "Getting Started",
-      items: [
-        { id: "introduction", name: "Introduction" },
-        { id: "installation", name: "Installation" },
-        { id: "usage-example", name: "Usage Example" },
-      ],
-    },
-    {
-      title: "Core Features",
-      items: [
-        { id: "core-functions", name: "Core Functions" },
-        { id: "input-handling", name: "Input Handling" },
-        { id: "rendering", name: "Rendering" },
-      ],
-    },
-    {
-      title: "Sprite Management",
-      items: [
-        { id: "sprite-types", name: "Sprite Types" },
-        { id: "sprite-operations", name: "Sprite Operations" },
-        { id: "animation", name: "Animation" },
-        { id: "collision", name: "Collision Detection" },
-      ],
-    },
-    {
-      title: "Advanced Features",
-      items: [
-        { id: "sprite-groups", name: "Sprite Groups" },
-        { id: "audio-system", name: "Audio System" },
-        { id: "image-manipulation", name: "Image Manipulation" },
-      ],
-    },
-    {
-      title: "API Reference",
-      items: [
-        { id: "api-enums", name: "Enumerations" },
-        { id: "api-keys", name: "Key Definitions" },
-        { id: "api-structures", name: "Data Structures" },
-        { id: "api-functions", name: "Functions" },
-      ],
-    },
-  ];
-
-  const contentMap = useMemo(
-    () => ({
-      introduction: {
-        title: "Introduction to Arcade Library",
-        content: `The Arcade Library is a lightweight C library for creating 2D arcade-style games with cross-platform support for Windows (Win32) and Linux (X11). It provides window management, color and image-based sprites, sprite animation, collision detection, sound playback, text rendering, and image manipulation. Ideal for retro games like Flappy Bird or Pong with minimal dependencies. Author: GeorgeET15. Repository: https://github.com/GeorgeET15/arcade-lib. Key Features: Cross-platform window management, sprite handling, input processing, audio playback, and image manipulation.`,
-      },
-      installation: {
-        title: "Installation",
-        content: `Dependencies vary by platform: Linux: libX11 (window/rendering), libm (math), STB libraries (image processing), aplay (sound). Windows: gdi32 (rendering), winmm (sound), STB libraries. Compilation: - Linux: gcc -o game game.c arcade.c -lX11 -lm - Windows: gcc -o game game.c arcade.c -lgdi32 -lwinmm Setup: 1. Linux: Install libx11-dev, libm (sudo apt install libx11-dev), ensure alsa-utils for aplay. 2. Windows: Use MinGW or MSYS2; gdi32/winmm are included. 3. Download STB libraries (stb_image.h, stb_image_write.h, stb_image_resize2.h) from https://github.com/nothings/stb. 4. Include arcade.h in your project. Note: Ensure image/audio files are in the correct paths.`,
-      },
-      "usage-example": {
-        title: "Usage Example",
-        content: `Creates a window, loads an image sprite, and renders it in a ~60 FPS game loop. Example includes error handling and cross-platform frame rate control. Ensure sprite.png is accessible and WAV files are PCM, 16-bit.`,
-      },
-      "core-functions": {
-        title: "Core Functions",
-        content: `Manage the game environment: - arcade_init: Initializes window with width, height, title, background color. - arcade_quit: Frees resources, closes window. - arcade_update: Processes events (keys, window close). - arcade_running: Checks if game is running. - arcade_set_running: Sets running state (e.g., exit on ESC). - arcade_sleep: Pauses for milliseconds to control frame rate.`,
-      },
-      "input-handling": {
-        title: "Input Handling",
-        content: `Handle keyboard input: - arcade_key_pressed: Detects continuous key presses (e.g., movement). - arcade_key_pressed_once: Detects single key presses (e.g., jump). - arcade_clear_keys: Resets key states (e.g., on pause). Example: Move with a_right, jump with a_space.`,
-      },
-      rendering: {
-        title: "Rendering",
-        content: `Render sprites and text: - arcade_render_scene: Renders multiple sprites (color/image-based). - arcade_render_text: Renders text at a position. - arcade_render_text_centered: Renders horizontally centered text. - arcade_render_text_centered_blink: Renders blinking centered text. Uses GDI (Windows) or XImage (Linux) for double buffering.`,
-      },
-      "sprite-types": {
-        title: "Sprite Types",
-        content: `Supported sprite types: - ArcadeSprite: Color-based (position, size, velocity, color, active). - ArcadeImageSprite: Image-based (position, size, velocity, pixel data). - ArcadeAnimatedSprite: Multi-frame animated sprite. - ArcadeAnySprite: Union for color/image sprites. Used for rendering and collision detection.`,
-      },
-      "sprite-operations": {
-        title: "Sprite Operations",
-        content: `Manage sprites: - arcade_create_image_sprite: Loads image-based sprite from file. - arcade_free_image_sprite: Frees sprite pixel data. - arcade_move_sprite: Updates color-based sprite position with gravity. - arcade_move_image_sprite: Updates image-based sprite position. Always free sprites to avoid memory leaks.`,
-      },
-      animation: {
-        title: "Animation",
-        content: `Handle animated sprites: - arcade_create_animated_sprite: Creates sprite with multiple frames. - arcade_free_animated_sprite: Frees all frame data. - arcade_move_animated_sprite: Updates position and animation frame. Example: Flapping bird with frame1.png, frame2.png.`,
-      },
-      collision: {
-        title: "Collision Detection",
-        content: `AABB collision detection: - arcade_check_collision: For color-based sprites. - arcade_check_image_collision: For image-based sprites. - arcade_check_animated_collision: For animated vs. image-based sprites. Returns 1 if collision occurs, 0 otherwise.`,
-      },
-      "sprite-groups": {
-        title: "Sprite Groups",
-        content: `Manage multiple sprites: - arcade_init_group: Initializes group with capacity. - arcade_add_sprite_to_group: Adds sprite to group. - arcade_add_animated_to_group: Adds animated sprite’s current frame. - arcade_render_group: Renders all group sprites. - arcade_free_group: Frees group memory. Efficient for batch rendering.`,
-      },
-      "audio-system": {
-        title: "Audio System",
-        content: `Play WAV files: - arcade_play_sound: Plays audio asynchronously. Windows: Uses PlaySound (SND_FILENAME | SND_ASYNC); may have ~0.5s delay on old systems. Linux: Uses aplay (requires alsa-utils). Note: Use PCM, 16-bit WAV files. Preload sounds on Windows to reduce delays.`,
-      },
-      "image-manipulation": {
-        title: "Image Manipulation",
-        content: `Modify sprite images: - arcade_flip_image: Flips image vertically or horizontally. - arcade_rotate_image: Rotates image (0, 90, 180, 270 degrees). Creates temporary PNG files; caller must free returned paths.`,
-      },
-      "api-enums": {
-        title: "Enumerations",
-        content: `Sprite type identifiers: - SPRITE_COLOR (0): For ArcadeSprite. - SPRITE_IMAGE (1): For ArcadeImageSprite. Used in sprite groups and rendering.`,
-      },
-      "api-keys": {
-        title: "Key Definitions",
-        content: `Predefined key codes: - a_up, a_down, a_left, a_right, a_w, a_a, a_s, a_d, a_r, a_p, a_space, a_esc. Example: a_space (0x0020) for spacebar, a_esc (0xff1b) for escape. Platform-agnostic mappings for Windows and Linux.`,
-      },
-      "api-structures": {
-        title: "Data Structures",
-        content: `Core structures: - ArcadeSprite: x, y, width, height, vy, vx, color, active. - ArcadeImageSprite: x, y, width, height, vy, vx, pixels, image_width, image_height, active. - ArcadeAnimatedSprite: frames, frame_count, current_frame, frame_interval, frame_counter. - ArcadeAnySprite: Union (sprite, image_sprite). - SpriteGroup: sprites, types, count, capacity.`,
-      },
-      "api-functions": {
-        title: "Functions",
-        content: `All library functions: - Core: arcade_init, arcade_quit, arcade_update, arcade_running, arcade_set_running, arcade_sleep. - Input: arcade_key_pressed, arcade_key_pressed_once, arcade_clear_keys. - Sprites: arcade_move_sprite, arcade_move_image_sprite, arcade_check_collision, arcade_check_image_collision, arcade_create_image_sprite, arcade_free_image_sprite, arcade_create_animated_sprite, arcade_free_animated_sprite, arcade_move_animated_sprite, arcade_check_animated_collision. - Rendering: arcade_render_scene, arcade_render_text, arcade_render_text_centered, arcade_render_text_centered_blink. - Groups: arcade_init_group, arcade_add_sprite_to_group, arcade_add_animated_to_group, arcade_render_group, arcade_free_group. - Audio: arcade_play_sound. - Images: arcade_flip_image, arcade_rotate_image.`,
-      },
-    }),
-    []
-  );
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const filteredSections = useMemo(() => {
     if (!searchQuery.trim()) return sidebarSections;
@@ -163,19 +46,24 @@ const DocumentationPage = () => {
 
   const currentSection = location.pathname.split("/docs/")[1] || "introduction";
 
-  const handleSectionClick = (sectionId) => {
+  const handleSectionClick = (sectionId: string) => {
     navigate(`/docs/${sectionId}`);
+    setIsSidebarOpen(false);
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const renderContent = () => {
     switch (currentSection) {
       case "introduction":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Introduction to Arcade Library
             </h1>
-            <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+            <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
               <p>
                 The Arcade Library is a lightweight C library designed for
                 creating 2D arcade-style games with cross-platform support for
@@ -187,11 +75,11 @@ const DocumentationPage = () => {
                 emphasizes minimal dependencies and simplicity.
               </p>
             </div>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Library Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Developed by GeorgeET15. Repository:{" "}
                   <a
@@ -202,7 +90,7 @@ const DocumentationPage = () => {
                   </a>
                   .
                 </p>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Key Features
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -214,7 +102,7 @@ const DocumentationPage = () => {
                   <li>Text rendering (fixed fonts)</li>
                   <li>Image manipulation (flip, rotate)</li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Platforms
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -227,16 +115,16 @@ const DocumentationPage = () => {
         );
       case "installation":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Installation
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Dependencies
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Linux
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -277,7 +165,7 @@ const DocumentationPage = () => {
                     : WAV audio playback (part of alsa-utils).
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Windows
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -300,22 +188,178 @@ const DocumentationPage = () => {
                     : Same as Linux.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
-                  Compilation
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
+                  Primary Setup: Arcade CLI
                 </h4>
                 <p>
-                  Compile with the appropriate flags, ensuring image and audio
-                  files are in the correct paths:
+                  The recommended way to set up an Arcade project is using the
+                  Arcade CLI, a Node.js-based tool that automates project
+                  initialization. It fetches{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    arcade.h
+                  </code>
+                  , STB headers, creates a demo{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    main.c
+                  </code>
+                  (with a movable red square, text, and background music),
+                  generates a cross-platform{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    Makefile
+                  </code>
+                  , and sets up assets and configuration files. Compatible with
+                  Arcade IDE v1.1.0+.
+                </p>
+                <h5 className="text-base sm:text-lg font-medium mt-4 text-pixel-teal font-pixel">
+                  Prerequisites
+                </h5>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>
+                    <strong>Node.js</strong>: Version 16+ (install via{" "}
+                    <a
+                      href="https://nodejs.org/"
+                      className="text-pixel-teal hover:underline"
+                    >
+                      nodejs.org
+                    </a>
+                    ).
+                  </li>
+                  <li>
+                    <strong>gcc</strong>: For compiling projects (Linux:
+                    included in{" "}
+                    <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                      build-essential
+                    </code>
+                    ; Windows: MinGW via MSYS2).
+                  </li>
+                  <li>
+                    <strong>Internet Connection</strong>: To download{" "}
+                    <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                      arcade.h
+                    </code>
+                    , STB headers, and{" "}
+                    <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                      background_music.wav
+                    </code>
+                    .
+                  </li>
+                </ul>
+                <h5 className="text-base sm:text-lg font-medium mt-4 text-pixel-teal font-pixel">
+                  Installation
+                </h5>
+                <p>Install the Arcade CLI globally using npm:</p>
+                <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
+                  <code className="language-bash font-code text-sm">
+                    npm install -g arcade-cli
+                  </code>
+                </pre>
+                <p>Verify the installation:</p>
+                <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
+                  <code className="language-bash font-code text-sm">
+                    arcade --help
+                  </code>
+                </pre>
+                <p>
+                  The CLI is installed to your global npm directory (Linux:{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    ~/.npm-global/bin/arcade
+                  </code>
+                  ; Windows:{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    %APPDATA%\npm\arcade
+                  </code>
+                  ). Ensure this directory is in your system PATH.
+                </p>
+                <h5 className="text-base sm:text-lg font-medium mt-4 text-pixel-teal font-pixel">
+                  Initializing a Project
+                </h5>
+                <p>
+                  Create a full project with a demo or a minimal project with
+                  the{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    -b
+                  </code>{" "}
+                  flag:
                 </p>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
                   <code className="language-bash font-code text-sm">
-                    # Linux gcc -o game game.c arcade.c -lX11 -lm # Windows gcc
-                    -o game game.c arcade.c -lgdi32 -lwinmm
+                    # Full project with demo arcade init my-game # Minimal
+                    project arcade init my-lib -b
                   </code>
                 </pre>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
-                  Setup Instructions
+                <p>
+                  The CLI prompts for configuration (game name, version, binary
+                  name, etc.), saved in{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    arcade.config.json
+                  </code>
+                  . The full project includes a demo with a red square movable
+                  via arrow keys, a start screen, and background music.
+                </p>
+                <h5 className="text-base sm:text-lg font-medium mt-4 text-pixel-teal font-pixel">
+                  Building and Running
+                </h5>
+                <p>
+                  Navigate to your project directory and use the generated{" "}
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                    Makefile
+                  </code>
+                  :
+                </p>
+                <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
+                  <code className="language-bash font-code text-sm">
+                    cd my-game make make run
+                  </code>
+                </pre>
+                <h5 className="text-base sm:text-lg font-medium mt-4 text-pixel-teal font-pixel">
+                  Troubleshooting
+                </h5>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>
+                    <strong>“arcade: command not found”</strong>: Add npm’s
+                    global bin to PATH (Linux:{" "}
+                    <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                      export PATH=~/.npm-global/bin:$PATH
+                    </code>
+                    ; Windows: Add{" "}
+                    <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                      %APPDATA%\npm
+                    </code>
+                    ).
+                  </li>
+                  <li>
+                    <strong>Network errors</strong>: Ensure internet access and
+                    check{" "}
+                    <a
+                      href="https://www.githubstatus.com/"
+                      className="text-pixel-teal hover:underline"
+                    >
+                      GitHub status
+                    </a>
+                    .
+                  </li>
+                  <li>
+                    <strong>Missing assets</strong>: Verify{" "}
+                    <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                      background_music.wav
+                    </code>{" "}
+                    downloaded correctly or fetch manually from{" "}
+                    <a
+                      href="https://github.com/GeorgeET15/arcade-lib"
+                      className="text-pixel-teal hover:underline"
+                    >
+                      arcade-lib
+                    </a>
+                    .
+                  </li>
+                </ul>
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
+                  Alternative: Manual Setup
                 </h4>
+                <p>
+                  If you prefer manual setup or cannot use the CLI, follow these
+                  steps:
+                </p>
                 <ol className="list-decimal pl-6 space-y-2">
                   <li>
                     Linux: Install dependencies (
@@ -352,10 +396,31 @@ const DocumentationPage = () => {
                     and link appropriately.
                   </li>
                 </ol>
+                <h5 className="text-base sm:text-lg font-medium mt-4 text-pixel-teal font-pixel">
+                  Compilation
+                </h5>
+                <p>
+                  Compile with the appropriate flags, ensuring files are in the
+                  correct paths:
+                </p>
+                <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
+                  <code className="language-bash font-code text-sm">
+                    # Linux gcc -o game game.c arcade.c -lX11 -lm # Windows gcc
+                    -o game game.c arcade.c -lgdi32 -lwinmm
+                  </code>
+                </pre>
                 <p>
                   <strong>Note</strong>: Ensure WAV files are PCM, 16-bit.
                   Windows may experience audio delays on old systems; consider
-                  preloading sounds (see Audio System).
+                  preloading sounds (see Audio System). For detailed examples,
+                  refer to the{" "}
+                  <a
+                    href="https://arcade-lib.vercel.app/"
+                    className="text-pixel-teal hover:underline"
+                  >
+                    ARCADE Wiki
+                  </a>
+                  .
                 </p>
               </div>
             </div>
@@ -363,15 +428,15 @@ const DocumentationPage = () => {
         );
       case "usage-example":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Usage Example
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 economía">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Basic Game Setup
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   This example initializes a window, loads an image sprite, and
                   renders it in a game loop at ~60 FPS. It includes error
@@ -410,8 +475,7 @@ int main() {
     arcade_free_group(&group);
     arcade_quit();
     return 0;
-}
-   `}{" "}
+}`}
                   </code>
                 </pre>
                 <p>
@@ -457,15 +521,15 @@ int main() {
         );
       case "core-functions":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Core Functions
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Core functions initialize and manage the game environment
                   across Windows and Linux:
@@ -512,7 +576,7 @@ int main() {
                     : Pauses execution (e.g., 16ms for ~60 FPS).
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -560,15 +624,15 @@ int main() {
         );
       case "input-handling":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Input Handling
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Functions for keyboard input detection, with platform-agnostic
                   key codes:
@@ -593,7 +657,7 @@ int main() {
                     : Resets all key states.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -647,15 +711,15 @@ int main() {
         );
       case "rendering":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Rendering
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Rendering functions draw sprites and text using double
                   buffering (GDI on Windows, XImage on Linux):
@@ -692,7 +756,7 @@ int main() {
                     60 FPS).
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -730,15 +794,15 @@ int main() {
         );
       case "sprite-types":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Sprite Types
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>The library supports multiple sprite types:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -772,7 +836,7 @@ int main() {
                     mixed types.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -808,15 +872,15 @@ ArcadeAnySprite any_sprite = {.image_sprite = player};`}
         );
       case "sprite-operations":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Sprite Operations
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>Functions for creating and moving sprites:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -848,7 +912,7 @@ ArcadeAnySprite any_sprite = {.image_sprite = player};`}
                     : Updates image-based sprite position.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -889,15 +953,15 @@ int main() {
         );
       case "animation":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Animation
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>Functions for managing animated sprites:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -923,7 +987,7 @@ int main() {
                     : Updates position and animation frame.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -966,15 +1030,15 @@ int main() {
         );
       case "collision":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Collision Detection
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Axis-aligned bounding box (AABB) collision detection for
                   sprites:
@@ -1002,7 +1066,7 @@ int main() {
                     : Checks collision between animated and image-based sprites.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -1040,15 +1104,15 @@ int main() {
         );
       case "sprite-groups":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Sprite Groups
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Sprite groups manage multiple sprites for efficient batch
                   rendering:
@@ -1087,7 +1151,7 @@ int main() {
                     : Frees group memory (not sprite data).
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -1100,7 +1164,7 @@ int main() {
     ArcadeImageSprite sprite1 = arcade_create_image_sprite(100, 100, 50, 50, "sprite1.png");
     ArcadeImageSprite sprite2 = arcade_create_image_sprite(200, 100, 50, 50, "sprite2.png");
     arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = sprite1}, SPRITE_IMAGE);
-    arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = sprite2}, SPRITE_IMAGE);
+    arcade_add_sprite to_group(&group, (ArcadeAnySprite){.image_sprite = sprite2}, SPRITE_IMAGE);
     while (arcade_running() && arcade_update()) {
         arcade_render_group(&group);
         arcade_sleep(16);
@@ -1132,15 +1196,15 @@ int main() {
         );
       case "audio-system":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Audio System
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>Plays WAV audio files asynchronously:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -1151,7 +1215,7 @@ int main() {
                     failure.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Platform Details
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1174,7 +1238,7 @@ int main() {
                     (requires alsa-utils).
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -1230,15 +1294,15 @@ int main() {
         );
       case "image-manipulation":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Image Manipulation
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Functions for manipulating sprite images using STB libraries:
                 </p>
@@ -1260,7 +1324,7 @@ int main() {
                     temporary file.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -1300,15 +1364,15 @@ int main() {
         );
       case "api-enums":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Enumerations
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Enumerations for sprite types used in rendering and groups:
                 </p>
@@ -1334,7 +1398,7 @@ int main() {
                     ).
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
@@ -1357,15 +1421,15 @@ int main() {
         );
       case "api-keys":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Key Definitions
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>
                   Predefined key codes for input handling, mapped to
                   platform-specific codes (Win32 virtual keys, X11 keycodes):
@@ -1444,13 +1508,13 @@ int main() {
                     : Escape key.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                   <code className="language-c font-code text-sm">
                     {`#include "arcade.h"
-                int main() {
+int main() {
     arcade_init(800, 600, "Game", 0x000000);
     while (arcade_running() && arcade_update()) {
         if (arcade_key_pressed_once(a_esc) == 2) {
@@ -1469,15 +1533,15 @@ int main() {
         );
       case "api-structures":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Data Structures
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>Core data structures for sprites and groups:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
@@ -1518,13 +1582,13 @@ int main() {
                     SPRITE_COLOR/SPRITE_IMAGE), count, capacity.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Example
                 </h4>
                 <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                   <code className="language-c font-code text-sm">
-                    #include "arcade.h"
-                    {`SpriteGroup group;
+                    {`#include "arcade.h"
+SpriteGroup group;
 ArcadeSprite platform = {100.0f, 500.0f, 200.0f, 20.0f, 0.0f, 0.0f, 0x00FF00, 1};
 ArcadeImageSprite player = arcade_create_image_sprite(100.0f, 100.0f, 50.0f, 50.0f, "player.png");
 arcade_init_group(&group, 2);
@@ -1552,17 +1616,17 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
         );
       case "api-functions":
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Functions
             </h1>
-            <div className="bg-pixel-dark/50 p-6 rounded-md">
-              <h3 className="text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
+            <div className="bg-pixel-dark/50 p-4 sm:p-6 rounded-md">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Overview
               </h3>
-              <div className="prose prose-invert max-w-none leading-relaxed text-lg text-pixel-light">
+              <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
                 <p>All Arcade Library functions, grouped by category:</p>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Core Functions
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1580,7 +1644,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       <span className="text-pixel-yellow">arcade_quit</span>
                       (void)
                     </code>
-                    : Closes window.
+                    : Frees resources and closes window.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1596,7 +1660,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       <span className="text-pixel-yellow">arcade_running</span>
                       (void)
                     </code>
-                    : Checks running state.
+                    : Checks if game is running.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1617,7 +1681,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                     : Pauses execution.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Input Handling
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1629,7 +1693,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (unsigned int key_val)
                     </code>
-                    : Checks key hold.
+                    : Detects continuous key presses.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1639,7 +1703,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (unsigned int key_val)
                     </code>
-                    : Checks single press.
+                    : Detects single key presses.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1652,7 +1716,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                     : Resets key states.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Sprite Operations
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1664,7 +1728,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeSprite *sprite, float gravity, int window_height)
                     </code>
-                    : Moves color-based sprite with gravity and boundary checks.
+                    : Moves color-based sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1675,7 +1739,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       (ArcadeImageSprite *sprite, float gravity, int
                       window_height)
                     </code>
-                    : Moves image-based sprite with gravity and boundary checks.
+                    : Moves image-based sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1685,7 +1749,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeSprite *a, ArcadeSprite *b)
                     </code>
-                    : Checks AABB collision between color-based sprites.
+                    : Checks collision for color-based sprites.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1695,7 +1759,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeImageSprite *a, ArcadeImageSprite *b)
                     </code>
-                    : Checks AABB collision between image-based sprites.
+                    : Checks collision for image-based sprites.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1705,7 +1769,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (float x, float y, float w, float h, const char *filename)
                     </code>
-                    : Creates an image-based sprite from a file (e.g., PNG).
+                    : Creates image sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1715,7 +1779,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeImageSprite *sprite)
                     </code>
-                    : Frees image sprite pixel data.
+                    : Frees image sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1726,7 +1790,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       (float x, float y, float w, float h, const char
                       **filenames, int frame_count, int frame_interval)
                     </code>
-                    : Creates an animated sprite with multiple frames.
+                    : Creates animated sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1736,7 +1800,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeAnimatedSprite *anim)
                     </code>
-                    : Frees animated sprite and all frame data.
+                    : Frees animated sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1747,7 +1811,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       (ArcadeAnimatedSprite *anim, float gravity, int
                       window_height)
                     </code>
-                    : Updates animated sprite position and frame.
+                    : Moves animated sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1757,11 +1821,10 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeAnimatedSprite *anim, ArcadeImageSprite *other)
                     </code>
-                    : Checks AABB collision between animated and image-based
-                    sprites.
+                    : Checks collision for animated sprite.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Rendering
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1773,7 +1836,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (ArcadeAnySprite *sprites, int count, int *types)
                     </code>
-                    : Renders multiple sprites (color or image-based).
+                    : Renders sprites.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1783,7 +1846,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (const char *text, float x, float y, unsigned int color)
                     </code>
-                    : Renders text at specified position.
+                    : Renders text.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1793,7 +1856,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (const char *text, float y, unsigned int color)
                     </code>
-                    : Renders horizontally centered text.
+                    : Renders centered text.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1804,10 +1867,10 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       (const char *text, float y, unsigned int color, int
                       blink_interval)
                     </code>
-                    : Renders blinking centered text.
+                    : Renders blinking text.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Sprite Groups
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1819,7 +1882,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (SpriteGroup *group, int capacity)
                     </code>
-                    : Initializes a sprite group with specified capacity.
+                    : Initializes sprite group.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1829,7 +1892,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (SpriteGroup *group, ArcadeAnySprite sprite, int type)
                     </code>
-                    : Adds a sprite (color or image-based) to the group.
+                    : Adds sprite to group.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1839,7 +1902,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (SpriteGroup *group, ArcadeAnimatedSprite *anim)
                     </code>
-                    : Adds an animated sprite’s current frame to the group.
+                    : Adds animated sprite.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1849,7 +1912,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (SpriteGroup *group)
                     </code>
-                    : Renders all sprites in the group.
+                    : Renders group.
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1859,10 +1922,10 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (SpriteGroup *group)
                     </code>
-                    : Frees group memory (not sprite data).
+                    : Frees group.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Audio
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1874,10 +1937,10 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (const char *audio_file_path)
                     </code>
-                    : Plays a WAV file asynchronously.
+                    : Plays WAV audio asynchronously.
                   </li>
                 </ul>
-                <h4 className="text-xl font-medium mt-6 text-pixel-teal font-pixel">
+                <h4 className="text-lg sm:text-xl font-medium mt-4 sm:mt-6 text-pixel-teal font-pixel">
                   Image Manipulation
                 </h4>
                 <ul className="list-disc pl-6 space-y-2">
@@ -1889,8 +1952,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (const char *input_path, int flip_type)
                     </code>
-                    : Flips image (0 = horizontal, 1 = vertical). Returns
-                    temporary file path.
+                    : Flips image (0 = horizontal, 1 = vertical).
                   </li>
                   <li>
                     <code className="bg-pixel-dark/70 px-1 rounded font-code">
@@ -1900,8 +1962,7 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
                       </span>
                       (const char *input_path, int degrees)
                     </code>
-                    : Rotates image (0, 90, 180, 270 degrees). Returns temporary
-                    file path.
+                    : Rotates image (0, 90, 180, 270 degrees).
                   </li>
                 </ul>
               </div>
@@ -1910,13 +1971,12 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
         );
       default:
         return (
-          <div className="space-y-8 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-10 rounded-lg">
-            <h1 className="text-4xl font-bold text-pixel-white font-pixel">
-              Section Not Found
+          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
+              Not Found
             </h1>
-            <p className="text-lg text-pixel-light">
-              The requested documentation section is not available. Please
-              select a valid section from the sidebar.
+            <p className="text-base sm:text-lg text-pixel-light">
+              The requested documentation section could not be found.
             </p>
           </div>
         );
@@ -1924,36 +1984,64 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
   };
 
   return (
-    <div className="min-h-screen bg-pixel-dark text-pixel-white flex">
-      <div className="w-80 bg-pixel-navy/80 p-6 border-r border-pixel-teal/30 flex flex-col gap-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pixel-teal" />
-          <Input
-            type="text"
-            placeholder="Search documentation..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-pixel-dark/50 border-pixel-teal/50 text-pixel-white placeholder-pixel-light focus:ring-pixel-teal"
-          />
+    <div className="flex flex-col md:flex-row min-h-screen bg-pixel-dark text-pixel-white">
+      {/* Mobile Sidebar Toggle Button */}
+      <div className="md:hidden sticky top-0 z-50 p-3 bg-pixel-navy/90 flex justify-between items-center shadow-md">
+        <h2 className="text-lg sm:text-xl font-bold font-pixel text-pixel-teal">
+          Arcade Docs
+        </h2>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleSidebar}
+          aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
+          className="hover:bg-pixel-teal/20 rounded-full transition-colors"
+        >
+          {isSidebarOpen ? (
+            <X className="h-5 w-5 text-pixel-teal" />
+          ) : (
+            <Menu className="h-5 w-5 text-pixel-teal" />
+          )}
+        </Button>
+      </div>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 z-50 w-4/5 sm:w-3/5 md:w-64 lg:w-80 bg-pixel-navy/90 p-4 md:p-6 border-r border-pixel-teal/30 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:static md:transform-none md:block h-full overflow-y-auto scrollbar-thin scrollbar-thumb-pixel-teal scrollbar-track-pixel-dark`}
+      >
+        <div className="mb-6">
+          <h2 className="text-lg md:text-xl font-bold mb-4 text-pixel-teal font-pixel">
+            Arcade Library Docs
+          </h2>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-pixel-light" />
+            <Input
+              type="text"
+              placeholder="Search documentation..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-pixel-dark/50 border-pixel-teal/50 text-pixel-white placeholder-pixel-light focus:ring-pixel-teal focus:border-pixel-teal text-sm rounded-md"
+            />
+          </div>
         </div>
         <Accordion type="single" collapsible className="space-y-2">
           {filteredSections.map((section, index) => (
-            <AccordionItem key={index} value={section.title}>
-              <AccordionTrigger className="text-pixel-teal font-pixel text-sm hover:text-pixel-white">
+            <AccordionItem key={index} value={`section-${index}`}>
+              <AccordionTrigger className="text-sm md:text-base font-semibold text-pixel-teal hover:text-pixel-white font-pixel py-2">
                 {section.title}
               </AccordionTrigger>
               <AccordionContent>
-                <ul className="space-y-2">
+                <ul className="space-y-1 pl-4">
                   {section.items.map((item) => (
                     <li key={item.id}>
                       <Button
-                        variant={
-                          currentSection === item.id ? "default" : "ghost"
-                        }
-                        className={`w-full text-left justify-start font-bold ${
+                        variant="link"
+                        className={`text-xs md:text-sm text-pixel-light hover:text-pixel-teal font-pixel transition-colors ${
                           currentSection === item.id
-                            ? "bg-pixel-teal text-pixel-dark"
-                            : "text-pixel-light hover:text-pixel-white hover:bg-pixel-teal/20"
+                            ? "text-pixel-teal font-bold"
+                            : ""
                         }`}
                         onClick={() => handleSectionClick(item.id)}
                       >
@@ -1967,7 +2055,20 @@ arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.image_sprite = player}, SP
           ))}
         </Accordion>
       </div>
-      <div className="flex-1 p-10 overflow-auto">{renderContent()}</div>
+
+      {/* Overlay for mobile when sidebar is open */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={toggleSidebar}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Main Content */}
+      <div className="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto max-w-full">
+        <div className="max-w-4xl mx-auto">{renderContent()}</div>
+      </div>
     </div>
   );
 };
