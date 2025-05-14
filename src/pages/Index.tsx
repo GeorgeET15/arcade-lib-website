@@ -112,8 +112,7 @@ make run`;
               },
               {
                 title: "Arcade-CLI",
-                description:
-                  "Command-line tool for project setup, sprite generation, and asset organization.",
+                description: "Command-line tool for project setup.",
                 icon: (
                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
                 ),
@@ -122,7 +121,7 @@ make run`;
               {
                 title: "Arcade IDE",
                 description:
-                  "IDE with AI-powered coding, debugging, and sprite editing tools.",
+                  "IDE with AI-powered sprite generation, debugging, and code completion.",
                 icon: (
                   <>
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
