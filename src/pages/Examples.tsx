@@ -17,14 +17,22 @@ interface GameCard {
 const Examples = () => {
   const videos = [
     {
-      id: "setup-project",
-      title: "Setting up a Project",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      id: "setup-demo-project",
+      title: "Demo Project Setup",
+      src: "/videos/Demo Project Setup.mp4",
+      poster: "/images/Demo_Project_Setup.png",
+    },
+    {
+      id: "setup-blank-project",
+      title: "Blank Project Setup",
+      src: "/videos/Blank Project Setup.mp4",
+      poster: "/images/Blank_Project_Setup.png",
     },
     {
       id: "install-ide",
-      title: "Installing the IDE and Setting it up",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      title: "Installing and Setting up the IDE",
+      src: "/videos/IDE Install and Setup.mp4",
+      poster: "/images/Ide.png",
     },
   ];
 
@@ -77,14 +85,16 @@ const Examples = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {videos.map((video) => (
               <div key={video.id} className="flex flex-col items-center">
-                <div className="w-full max-w-full aspect-video bg-pixel-dark border-4 border-pixel-teal/80 rounded-lg overflow-hidden shadow-[6px_6px_0_#ff00ff]">
-                  <iframe
-                    src={video.embedUrl}
-                    title={video.title}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                <div className="w-full max-w-full aspect-video bg-pixel-dark border-4  rounded-lg overflow-hidden ">
+                  <video
+                    src={video.src}
+                    poster={video.poster}
+                    controls
+                    className="w-full h-full object-contain"
+                  >
+                    <source src={video.src} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
                 <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold text-pixel-yellow font-pixel">
                   {video.title}
