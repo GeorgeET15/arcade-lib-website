@@ -59,7 +59,7 @@ const DocumentationPage = () => {
     switch (currentSection) {
       case "introduction":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Introduction
             </h1>
@@ -124,7 +124,7 @@ const DocumentationPage = () => {
         );
       case "installation":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Installation
             </h1>
@@ -146,28 +146,28 @@ const DocumentationPage = () => {
                 </li>
                 <li>
                   Install CLI:{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     npm install -g arcade-cli
                   </code>
                   .
                 </li>
                 <li>
                   Verify:{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade --help
                   </code>
                   .
                 </li>
                 <li>
                   Create project:{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade init my-game
                   </code>
                   .
                 </li>
                 <li>
                   Build and run:{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     cd my-game && make && make run
                   </code>
                   .
@@ -193,11 +193,11 @@ const DocumentationPage = () => {
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   Linux: Install{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     libx11-dev
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     alsa-utils
                   </code>
                   .
@@ -215,7 +215,7 @@ const DocumentationPage = () => {
                 </li>
                 <li>
                   Get{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade.h
                   </code>{" "}
                   from{" "}
@@ -229,10 +229,14 @@ const DocumentationPage = () => {
                 </li>
                 <li>
                   Compile:
-                  <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white text-sm">
+                  <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white text-sm">
                     <code className="language-bash font-code">
-                      # Linux gcc -o game game.c arcade.c -lX11 -lm # Windows
-                      gcc -o game game.c arcade.c -lgdi32 -lwinmm
+                      # Linux gcc -o game game.c arcade.c -lX11 -lm
+                    </code>
+                  </pre>
+                  <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white text-sm mt-2">
+                    <code className="language-bash font-code">
+                      # Windows gcc -o game game.c arcade.c -lgdi32 -lwinmm
                     </code>
                   </pre>
                 </li>
@@ -243,7 +247,7 @@ const DocumentationPage = () => {
         );
       case "usage-example":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white bg-pixel-dark p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Usage Example
             </h1>
@@ -252,7 +256,7 @@ const DocumentationPage = () => {
                 This example creates a game where a player moves a sprite and
                 shoots a bullet at a moving target, scoring points on hits.
               </p>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -313,7 +317,7 @@ int main() {
         );
       case "core-functions":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Core Functions
             </h1>
@@ -323,43 +327,43 @@ int main() {
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_init(width, height, title, bg_color)
                   </code>
                   : Opens a window (returns 0 if OK).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_quit()
                   </code>
                   : Closes the window.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_update()
                   </code>
                   : Handles events (returns 1 to continue).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_running()
                   </code>
                   : Checks if game is running (1 = yes).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_set_running(value)
                   </code>
                   : Sets running state (0 = stop).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_sleep(ms)
                   </code>
                   : Pauses (e.g., 16ms for 60 FPS).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_delta_time()
                   </code>
                   : Gets time between frames.
@@ -368,7 +372,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -401,14 +405,14 @@ int main() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   Check{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_init
                   </code>{" "}
                   for errors.
                 </li>
                 <li>
                   Use{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     delta_time
                   </code>{" "}
                   for smooth movement.
@@ -419,7 +423,7 @@ int main() {
         );
       case "input-handling":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Input Handling
             </h1>
@@ -427,19 +431,19 @@ int main() {
               <p>Handle keyboard input with these functions.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_key_pressed(key)
                   </code>
                   : Checks if key is held (returns 2 if yes).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_key_pressed_once(key)
                   </code>
                   : Checks one-time press (returns 2 if yes).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_clear_keys()
                   </code>
                   : Resets key states.
@@ -448,7 +452,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -485,11 +489,11 @@ int main() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   Use keys like{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_right
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_space
                   </code>
                   .
@@ -501,7 +505,7 @@ int main() {
         );
       case "rendering":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Rendering
             </h1>
@@ -509,25 +513,25 @@ int main() {
               <p>Draw sprites and text to the screen.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_scene(sprites, count, types)
                   </code>
                   : Draws multiple sprites.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_text(text, x, y, color)
                   </code>
                   : Draws text at position.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_text_centered(text, y, color)
                   </code>
                   : Centers text horizontally.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_text_centered_blink(text, y, color, interval)
                   </code>
                   : Blinks centered text.
@@ -536,7 +540,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -577,7 +581,7 @@ int main() {
         );
       case "sprite-types":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Sprite Types
             </h1>
@@ -585,25 +589,25 @@ int main() {
               <p>Different sprite types for your game.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeSprite
                   </code>
                   : Color-based (e.g., platforms).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeImageSprite
                   </code>
                   : Image-based (e.g., characters).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeAnimatedSprite
                   </code>
                   : Multi-frame animations.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeAnySprite
                   </code>
                   : Combines color/image for groups.
@@ -612,7 +616,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -639,14 +643,14 @@ int main() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   Set{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     active = 0
                   </code>{" "}
                   to hide sprites.
                 </li>
                 <li>
                   Check{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     pixels
                   </code>{" "}
                   for image sprite errors.
@@ -657,7 +661,7 @@ int main() {
         );
       case "sprite-operations":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Sprite Operations
             </h1>
@@ -665,25 +669,25 @@ int main() {
               <p>Create and move sprites in your game.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_create_image_sprite(x, y, w, h, file)
                   </code>
                   : Loads PNG sprite.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_free_image_sprite(sprite)
                   </code>
                   : Frees sprite data.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_move_sprite(sprite, gravity, height)
                   </code>
                   : Moves color sprite.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_move_image_sprite(sprite, gravity, height)
                   </code>
                   : Moves image sprite.
@@ -692,7 +696,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -719,7 +723,7 @@ int main() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   Check{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     pixels
                   </code>{" "}
                   for errors.
@@ -731,7 +735,7 @@ int main() {
         );
       case "animation":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Animation
             </h1>
@@ -739,20 +743,20 @@ int main() {
               <p>Create and animate sprites with multiple frames.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_create_animated_sprite(x, y, w, h, files, count,
                     interval)
                   </code>
                   : Loads animation frames.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_free_animated_sprite(anim)
                   </code>
                   : Frees animation data.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_move_animated_sprite(anim, gravity, height)
                   </code>
                   : Moves and animates.
@@ -761,7 +765,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -796,7 +800,7 @@ int main() {
         );
       case "collision":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Collision Detection
             </h1>
@@ -804,19 +808,19 @@ int main() {
               <p>Check for sprite collisions using AABB (box) method.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_check_collision(a, b)
                   </code>
                   : For color sprites.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_check_image_collision(a, b)
                   </code>
                   : For image sprites.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_check_animated_collision(anim, other)
                   </code>
                   : For animated vs. image.
@@ -825,28 +829,63 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
+
 int main() {
-    arcade_init(800, 600, "Game", 0x000000);
-    ArcadeSprite player = {300, 500, 20, 20, 0, 0, 0xFF0000, 1};
-    ArcadeSprite enemy = {300, 100, 30, 30, 0, 2, 0x00FF00, 1};
-    SpriteGroup group; arcade_init_group(&group, 2);
+    if (arcade_init(800, 600, "Game", 0x000000) != 0) {
+        fprintf(stderr, "Initialization failed");
+        return 1; 
+    }
+
+    ArcadeSprite player = {300, 500, 20, 20, 0, 0, 0xFF0000, 1}; 
+    ArcadeSprite enemy = {300, 100, 30, 30, 0, 2, 0x00FF00, 1};  
+    SpriteGroup group;
+    arcade_init_group(&group, 2);
+    int score = 0; 
+    char text[32];
+
     while (arcade_running() && arcade_update()) {
         float dt = arcade_delta_time() * 60.0f;
+        if (dt <= 0) dt = 1.0f; 
+        printf("dt: %f, enemy.y: %f, enemy.vy: %f", dt, enemy.y, enemy.vy); 
+
+        snprintf(text, sizeof(text), "Score: %d", score);
+
+        if (arcade_key_pressed(a_right) == 2) player.vx = 5;
+        else if (arcade_key_pressed(a_left) == 2) player.vx = -5;
+        else player.vx = 0;
+        player.x += player.vx * dt;
+        if (player.x < 0) player.x = 0;
+        else if (player.x > 780) player.x = 780;
+
+        enemy.vy = 2; 
         enemy.y += enemy.vy * dt;
-        if (enemy.y > 600) enemy.y = 0;
+        printf("After update, enemy.y: %f", enemy.y); 
+        if (enemy.y > 600) {
+            enemy.y = 0; 
+            enemy.x = rand() % 750; 
+            score++; 
+        }
+
         group.count = 0;
         arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.sprite = player}, SPRITE_COLOR);
         arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.sprite = enemy}, SPRITE_COLOR);
+
         arcade_render_group(&group);
+        arcade_render_text(text, 10, 30, 0xFFFFFF);
+
         if (arcade_check_collision(&player, &enemy)) {
+            arcade_render_text_centered("Game Over!", 300, 0xFFFFFF);
+            arcade_sleep(2000); 
             arcade_set_running(0);
         }
-        arcade_sleep(16);
+
+        arcade_sleep(16); 
     }
+
     arcade_free_group(&group);
     arcade_quit();
     return 0;
@@ -862,7 +901,7 @@ int main() {
         );
       case "sprite-groups":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Sprite Groups
             </h1>
@@ -870,31 +909,31 @@ int main() {
               <p>Manage multiple sprites for easy rendering.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_init_group(group, capacity)
                   </code>
                   : Sets up group.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_add_sprite_to_group(group, sprite, type)
                   </code>
                   : Adds sprite.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_add_animated_to_group(group, anim)
                   </code>
                   : Adds animated sprite.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_group(group)
                   </code>
                   : Draws all sprites.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_free_group(group)
                   </code>
                   : Frees group.
@@ -903,25 +942,72 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
+
+typedef enum { Playing, GameOver } GameState;
+
 int main() {
-    arcade_init(800, 600, "Game", 0x000000);
-    ArcadeSprite player = {300, 300, 20, 20, 0, 0, 0xFF0000, 1};
-    ArcadeSprite enemy = {400, 300, 20, 20, 2, 0, 0x00FF00, 1};
-    SpriteGroup group; arcade_init_group(&group, 2);
+    if (arcade_init(800, 600, "Game", 0x000000) != 0) {
+        fprintf(stderr, "Initialization failed");
+        return 1; 
+    }
+
+    ArcadeSprite player = {300, 300, 20, 20, 0, 0, 0xFF0000, 1}; 
+    ArcadeSprite enemy = {400, 300, 20, 20, 2, 0, 0x00FF00, 1};  
+    SpriteGroup group;
+    arcade_init_group(&group, 2);
+    GameState state = Playing;
+    int score = 0; 
+    char text[32];
+
     while (arcade_running() && arcade_update()) {
         float dt = arcade_delta_time() * 60.0f;
-        enemy.x += enemy.vx * dt;
-        if (enemy.x > 780 || enemy.x < 0) enemy.vx = -enemy.vx;
+        if (dt <= 0) dt = 1.0f;
+        printf("dt: %f, enemy.x: %f, enemy.vx: %f", dt, enemy.x, enemy.vx);
+
+        snprintf(text, sizeof(text), "Score: %d", score);
+
         group.count = 0;
         arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.sprite = player}, SPRITE_COLOR);
         arcade_add_sprite_to_group(&group, (ArcadeAnySprite){.sprite = enemy}, SPRITE_COLOR);
+
         arcade_render_group(&group);
+        arcade_render_text(text, 10, 30, 0xFFFFFF); 
+
+        if (state == Playing) {
+            
+            if (arcade_key_pressed(a_right) == 2) player.vx = 5;
+            else if (arcade_key_pressed(a_left) == 2) player.vx = -5;
+            else player.vx = 0;
+            player.x += player.vx * dt;
+            if (player.x < 0) player.x = 0;
+            else if (player.x > 780) player.x = 780;
+
+            enemy.vx = (enemy.x > 780 || enemy.x < 0) ? -enemy.vx : enemy.vx; 
+            enemy.x += enemy.vx * dt;
+            printf("After update, enemy.x: %f", enemy.x); 
+            if (enemy.x > 780 || enemy.x < 0) score++;
+
+            if (arcade_check_collision(&player, &enemy)) {
+                state = GameOver;
+            }
+        } else if (state == GameOver) {
+            arcade_render_text_centered("Game Over! Press R", 300, 0xFFFFFF);
+            if (arcade_key_pressed_once(a_r) == 2) {
+                arcade_clear_keys(); 
+                player.x = 300; player.vx = 0; 
+                enemy.x = 400; enemy.vx = 2; 
+                score = 0; 
+                state = Playing;
+            }
+        }
+
         arcade_sleep(16);
     }
+
     arcade_free_group(&group);
     arcade_quit();
     return 0;
@@ -937,7 +1023,7 @@ int main() {
         );
       case "audio-system":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Audio System
             </h1>
@@ -945,13 +1031,13 @@ int main() {
               <p>Play and control WAV audio files.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_play_sound(file)
                   </code>
                   : Plays WAV async (returns 0 if OK).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_stop_sound()
                   </code>
                   : Stops all sounds.
@@ -960,7 +1046,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -995,7 +1081,7 @@ int main() {
         );
       case "image-manipulation":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Image Manipulation
             </h1>
@@ -1003,13 +1089,13 @@ int main() {
               <p>Edit sprite images with these functions.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_flip_image(file, type)
                   </code>
                   : Flips image (0 = horizontal, 1 = vertical).
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_rotate_image(file, degrees)
                   </code>
                   : Rotates image (0, 90, 180, 270).
@@ -1018,7 +1104,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -1052,7 +1138,7 @@ int main() {
         );
       case "api-enums":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Enumerations
             </h1>
@@ -1060,13 +1146,13 @@ int main() {
               <p>Sprite type identifiers for rendering.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     SPRITE_COLOR = 0
                   </code>
                   : Color-based sprite.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     SPRITE_IMAGE = 1
                   </code>
                   : Image-based sprite.
@@ -1075,7 +1161,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -1103,7 +1189,7 @@ int main() {
         );
       case "api-keys":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Key Definitions
             </h1>
@@ -1111,47 +1197,49 @@ int main() {
               <p>Key codes for input handling.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_up
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_down
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_left
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_right
                   </code>
                   : Arrow keys.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    a_w
-                  </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_a
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    a_s
+                  -
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    a_z
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    a_d
-                  </code>
-                  : WASD keys.
+                  : Alphabet keys.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    a_0
+                  </code>
+                  -
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    a_9
+                  </code>
+                  : Number keys.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_space
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     a_esc
                   </code>
                   : Space and Escape.
@@ -1160,7 +1248,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -1191,7 +1279,7 @@ int main() {
         );
       case "api-structures":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Data Structures
             </h1>
@@ -1199,31 +1287,31 @@ int main() {
               <p>Structures for sprites and groups.</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeSprite
                   </code>
                   : x, y, width, height, vx, vy, color, active.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeImageSprite
                   </code>
                   : x, y, width, height, vx, vy, pixels, active.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeAnimatedSprite
                   </code>
                   : frames, frame_count, current_frame.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     ArcadeAnySprite
                   </code>
                   : Union of color/image sprites.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     SpriteGroup
                   </code>
                   : sprites, types, count, capacity.
@@ -1232,7 +1320,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-c">
                 <code className="language-c font-code text-sm">
                   {`#define ARCADE_IMPLEMENTATION
 #include "arcade.h"
@@ -1258,7 +1346,7 @@ int main() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>Free image sprites and groups.</li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     active
                   </code>{" "}
                   controls visibility.
@@ -1269,47 +1357,61 @@ int main() {
         );
       case "api-functions":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Functions
             </h1>
             <div className="prose prose-invert max-w-none leading-relaxed text-base sm:text-lg text-pixel-light">
-              <p>All Arcade functions, grouped by purpose.</p>
+              <p>
+                All Arcade functions, grouped by purpose with one-line
+                definitions.
+              </p>
               <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-pixel-teal font-pixel">
                 Core
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink text-pixel-pink">
                     arcade_init
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    arcade_quit
-                  </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    arcade_update
-                  </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    arcade_running
-                  </code>
-                  .
+                  : Initializes a game window with specified dimensions and
+                  title.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    arcade_quit
+                  </code>
+                  : Closes the game window and cleans up resources.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    arcade_update
+                  </code>
+                  : Processes events and updates the game state.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    arcade_running
+                  </code>
+                  : Checks if the game loop is active.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_set_running
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Sets the game loop’s running state.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_sleep
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Pauses execution for a specified duration.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_delta_time
                   </code>
-                  .
+                  : Returns the time elapsed since the last frame.
                 </li>
               </ul>
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
@@ -1317,18 +1419,22 @@ int main() {
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_key_pressed
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Checks if a key is currently held down.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_key_pressed_once
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Detects a single key press event.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_clear_keys
                   </code>
-                  .
+                  : Resets all key input states.
                 </li>
               </ul>
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
@@ -1336,54 +1442,64 @@ int main() {
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_create_image_sprite
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Loads a PNG image as a sprite.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_free_image_sprite
                   </code>
-                  .
+                  : Frees memory used by an image sprite.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_move_sprite
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Updates a color sprite’s position with gravity.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_move_image_sprite
                   </code>
-                  .
+                  : Updates an image sprite’s position with gravity.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_check_collision
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Detects collisions between color sprites.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_check_image_collision
                   </code>
-                  .
+                  : Detects collisions between image sprites.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_create_animated_sprite
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    arcade_free_animated_sprite
-                  </code>
-                  .
+                  : Creates a sprite with multiple animation frames.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    arcade_free_animated_sprite
+                  </code>
+                  : Frees memory used by an animated sprite.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_move_animated_sprite
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Updates an animated sprite’s position and frame.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_check_animated_collision
                   </code>
-                  .
+                  : Detects collisions with animated sprites.
                 </li>
               </ul>
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
@@ -1391,24 +1507,28 @@ int main() {
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_scene
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    arcade_render_text
-                  </code>
-                  .
+                  : Draws multiple sprites to the screen.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    arcade_render_text
+                  </code>
+                  : Renders text at a specified position.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_text_centered
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Renders text centered horizontally.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_text_centered_blink
                   </code>
-                  .
+                  : Renders blinking centered text.
                 </li>
               </ul>
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
@@ -1416,28 +1536,34 @@ int main() {
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_init_group
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
-                    arcade_add_sprite_to_group
-                  </code>
-                  .
+                  : Initializes a sprite group with a capacity.
                 </li>
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
+                    arcade_add_sprite_to_group
+                  </code>
+                  : Adds a sprite to a group for rendering.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_add_animated_to_group
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Adds an animated sprite to a group.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_render_group
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Draws all sprites in a group.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_free_group
                   </code>
-                  .
+                  : Frees memory used by a sprite group.
                 </li>
               </ul>
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
@@ -1445,14 +1571,16 @@ int main() {
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_play_sound
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Plays a WAV audio file asynchronously.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_stop_sound
                   </code>
-                  .
+                  : Stops all currently playing sounds.
                 </li>
               </ul>
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
@@ -1460,25 +1588,24 @@ int main() {
               </h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_flip_image
                   </code>
-                  ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  : Flips an image horizontally or vertically.
+                </li>
+                <li>
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade_rotate_image
                   </code>
-                  .
+                  : Rotates an image by 0, 90, 180, or 270 degrees.
                 </li>
-              </ul>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Use with Arcade CLI and IDE for easier development.</li>
               </ul>
             </div>
           </div>
         );
       case "arcade-cli":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Arcade CLI
             </h1>
@@ -1487,33 +1614,33 @@ int main() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>
                   Creates{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade.h
                   </code>
                   , STB headers,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     main.c
                   </code>
                   ,{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     Makefile
                   </code>
                   , and assets.
                 </li>
                 <li>
                   Install:{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     npm install -g arcade-cli
                   </code>{" "}
                   (needs Node.js 16+).
                 </li>
                 <li>
                   Use:{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade init my-game
                   </code>{" "}
                   or{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade init my-game --blank
                   </code>
                   .
@@ -1534,7 +1661,7 @@ int main() {
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
                 <code className="language-bash font-code text-sm">
                   {`npm install -g arcade-cli
 arcade init my-game
@@ -1547,7 +1674,7 @@ make run`}
                 <li>Demo includes a movable square and music.</li>
                 <li>
                   Check{" "}
-                  <code className="bg-pixel-dark/70 px-1 rounded font-code">
+                  <code className="bg-pixel-dark/70 px-1 rounded font-code text-pixel-pink">
                     arcade --help
                   </code>
                   .
@@ -1558,7 +1685,7 @@ make run`}
         );
       case "arcade-ide":
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Arcade IDE
             </h1>
@@ -1596,7 +1723,7 @@ make run`}
               <h3 className="text-xl sm:text-2xl font-semibold mt-6 mb-4 text-pixel-teal font-pixel">
                 Example
               </h3>
-              <pre className="bg-pixel-dark/90 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
+              <pre className="bg-pixel-navy/80 p-4 rounded-md border border-pixel-teal/50 text-pixel-white overflow-x-auto line-numbers language-bash">
                 <code className="language-bash font-code text-sm">
                   {`arcade init my-game
 # Open my-game in Arcade IDE
@@ -1612,7 +1739,7 @@ make run`}
         );
       default:
         return (
-          <div className="space-y-6 text-pixel-white bg-gradient-to-b from-pixel-dark/80 to-pixel-navy/80 p-4 sm:p-6 md:p-8 rounded-lg">
+          <div className="space-y-6 text-pixel-white  p-4 sm:p-6 md:p-8 rounded-lg">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pixel-white font-pixel">
               Not Found
             </h1>
@@ -1648,40 +1775,40 @@ make run`}
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-4/5 sm:w-3/5 md:w-64 lg:w-80 bg-pixel-navy/90 p-4 md:p-6 border-r border-pixel-teal/30 transform transition-transform duration-300 ease-in-out ${
+        className={`mt-1 fixed inset-y-0 left-0 z-50 w-full sm:w-5/6 md:w-80 lg:w-96 bg-pixel-navy/95 p-4 md:p-6 border-r border-pixel-teal/50 transform transition-transform duration-300 ease-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } md:static md:transform-none md:block h-full overflow-y-auto scrollbar-thin scrollbar-thumb-pixel-teal scrollbar-track-pixel-dark`}
+        } md:static md:transform-none md:block h-screen scrollbar-thin scrollbar-thumb-pixel-teal/60 scrollbar-track-pixel-dark/20 rounded-r-lg`}
       >
         <div className="mb-6">
           <h2 className="text-lg md:text-xl font-bold mb-4 text-pixel-teal font-pixel">
-            Arcade Library Docs
+            Arcade Docs
           </h2>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-pixel-light" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-pixel-teal/70" />
             <Input
               type="text"
-              placeholder="Search documentation..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-pixel-dark/50 border-pixel-teal/50 text-pixel-white placeholder-pixel-light focus:ring-pixel-teal focus:border-pixel-teal text-sm rounded-md"
+              className="pl-10 pr-3 py-2 bg-pixel-dark/60 border border-pixel-teal/40 text-pixel-white placeholder-pixel-light/70 focus:ring-1 focus:ring-pixel-teal focus:border-pixel-teal text-sm rounded-md w-full"
             />
           </div>
         </div>
         <Accordion type="single" collapsible className="space-y-2">
           {filteredSections.map((section, index) => (
             <AccordionItem key={index} value={`section-${index}`}>
-              <AccordionTrigger className="text-sm md:text-base font-semibold text-pixel-teal hover:text-pixel-white font-pixel py-2">
+              <AccordionTrigger className="text-sm md:text-base font-semibold text-pixel-teal hover:text-pixel-cyan font-pixel py-2 px-3 rounded-md hover:bg-pixel-dark/30">
                 {section.title}
               </AccordionTrigger>
               <AccordionContent>
-                <ul className="space-y-1 pl-4">
+                <ul className="space-y-1 pl-3">
                   {section.items.map((item) => (
                     <li key={item.id}>
                       <Button
                         variant="link"
-                        className={`text-xs md:text-sm text-pixel-light hover:text-pixel-teal font-pixel transition-colors ${
+                        className={`text-sm text-pixel-light hover:text-pixel-teal font-pixel px-3 py-1 rounded-md w-full text-left ${
                           currentSection === item.id
-                            ? "text-pixel-teal font-bold"
+                            ? "text-pixel-teal font-bold bg-pixel-dark/20"
                             : ""
                         }`}
                         onClick={() => handleSectionClick(item.id)}
