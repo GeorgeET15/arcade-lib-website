@@ -615,23 +615,23 @@ make run`;
               >
                 {[
                   {
-                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_1.png?token=GHSAT0AAAAAADB4UQOW4TAAEDQECZGFJAHO2BFVQ4Q",
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_1.png",
                     alt: "IDE Image",
                   },
                   {
-                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_2.png?token=GHSAT0AAAAAADB4UQOXVQYV2OXHQE6F2SFY2BFVQ7A",
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_2.png",
                     alt: "IDE Image",
                   },
                   {
-                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_3.png?token=GHSAT0AAAAAADB4UQOXI2L6XWO25VPKHZDE2BFVRBQ",
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_3.png",
                     alt: "IDE Image",
                   },
                   {
-                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_4.png?token=GHSAT0AAAAAADB4UQOWX5S2YIS4CKZI3RI42BFVRFA",
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_4.png",
                     alt: "IDE Image",
                   },
                   {
-                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_5.png?token=GHSAT0AAAAAADB4UQOXAM6HRUCRYUGQKL2S2BFVRHA",
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_5.png",
                     alt: "IDE Image",
                   },
                 ].map((image, index) => (
