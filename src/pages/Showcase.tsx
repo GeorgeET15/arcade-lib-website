@@ -6,11 +6,9 @@ import {
   Dice3,
   Gamepad,
   Upload,
-  Github,
   User,
   ChevronLeft,
   ChevronRight,
-  X,
   Puzzle,
   Car,
   Map,
@@ -48,6 +46,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { createClient } from "@supabase/supabase-js";
+import { FaGithub } from "react-icons/fa";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -127,22 +126,25 @@ function RetroShowcaseCard({
 }) {
   return (
     <Card
-      className="bg-pixel-dark border-4 border-pixel-teal/80 text-pixel-light flex flex-col items-center gap-3 p-4 w-full max-w-[280px] mx-auto cursor-pointer hover:scale-105 hover:border-pixel-yellow/80 transition-transform duration-200 shadow-[4px_4px_0_#ff00ff]"
+      className="bg-pixel-dark border-2 border-pixel-teal text-pixel-light flex flex-col items-center gap-1 sm:gap-1.5 p-1.5 sm:p-2 w-full max-w-[160px] sm:max-w-[320px] mx-auto cursor-pointer hover:scale-105 hover:border-pixel-teal transition-transform duration-200 shadow-[2px_2px_0_#ff00ff] overflow-hidden mt-3"
       onClick={onClick}
+      aria-label={`View details for ${game.name} by ${game.creator}`}
     >
-      <div className="text-4xl">{game.icon}</div>
-      <img
-        src={game.coverImage}
-        alt={game.name}
-        className="w-36 h-28 object-contain border-2 border-pixel-teal/80 bg-pixel-navy/80 rounded-[4px]"
-      />
-      <div className="font-pixel text-sm uppercase text-pixel-yellow">
+      <div className="relative w-full">
+        <img
+          src={game.coverImage}
+          alt={`${game.name} cover`}
+          className="w-full max-w-[140px] sm:max-w-[300px] h-20 sm:h-48 object-contain border-2 border-pixel-teal/80 bg-pixel-navy/80 rounded-[4px] mx-auto"
+          loading="lazy"
+        />
+        <div className="absolute top-1 left-1 bg-pixel-dark/50 p-0.5 rounded-full">
+          <span className="text-sm sm:text-2xl">{game.icon}</span>
+        </div>
+      </div>
+      <div className="font-pixel text-[8px] sm:text-xs uppercase text-pixel-yellow line-clamp-1">
         {game.name}
       </div>
-      <div className="text-xs font-sans text-pixel-light text-center line-clamp-2">
-        {game.description}
-      </div>
-      <div className="text-xs font-pixel text-pixel-teal">
+      <div className="text-[8px] sm:text-xs font-sans text-pixel-teal opacity-75">
         by {game.creator}
       </div>
     </Card>
@@ -158,6 +160,7 @@ const ShowcasePage = () => {
   const [isGameDialogOpen, setIsGameDialogOpen] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const form = useForm<UploadFormValues>({
     resolver: zodResolver(uploadFormSchema),
@@ -252,20 +255,33 @@ const ShowcasePage = () => {
     );
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchEndX - touchStartX;
+    if (deltaX > 50) handlePrev(); // Swipe right
+    else if (deltaX < -50) handleNext(); // Swipe left
+    setTouchStartX(null);
+  };
+
   return (
-    <div className="bg-gradient-to-b from-pixel-navy to-pixel-dark min-h-screen flex flex-col items-center justify-start py-8 px-4 relative">
+    <div className="bg-gradient-to-b from-pixel-navy to-pixel-dark min-h-screen flex flex-col items-center justify-start py-6 px-2 sm:px-4 relative">
       <div className="scanlines pointer-events-none absolute inset-0"></div>
       <div className="z-10 w-full max-w-6xl mx-auto flex flex-col items-center">
-        <div className="flex flex-col items-center mb-8 text-center">
+        <div className="flex flex-col items-center mb-6 sm:mb-8 text-center">
           <h1
-            className="text-pixel-yellow text-3xl sm:text-4xl md:text-5xl font-pixel drop-shadow-[0_4px_0px_rgb(0_0_0/0.5)] tracking-widest uppercase"
-            style={{ letterSpacing: "3px" }}
+            className="text-pixel-yellow text-2xl sm:text-3xl md:text-4xl font-pixel drop-shadow-[0_4px_0px_rgb(0_0_0/0.5)] tracking-widest uppercase"
+            style={{ letterSpacing: "2px" }}
           >
             ARCADE SHOWCASE
           </h1>
           <p
             className="font-pixel text-pixel-light mt-1 text-xs sm:text-sm uppercase tracking-widest"
-            style={{ letterSpacing: "1.5px" }}
+            style={{ letterSpacing: "1px" }}
           >
             Games Created With ARCADE
           </p>
@@ -275,26 +291,26 @@ const ShowcasePage = () => {
           </p>
           <Button
             onClick={() => setIsInstructionsDialogOpen(true)}
-            className="mt-4 bg-pixel-yellow text-pixel-dark font-pixel text-base sm:text-lg px-6 py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors"
+            className="mt-3 sm:mt-4 bg-pixel-yellow text-pixel-dark font-pixel text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors min-w-[44px] min-h-[44px]"
           >
             <Upload className="mr-2 h-4 w-4" /> Submit Your Game
           </Button>
         </div>
 
         <div className="w-full">
-          <h2 className="font-pixel text-pixel-teal text-xl sm:text-2xl text-center uppercase mb-6">
+          <h2 className="font-pixel text-pixel-teal text-lg sm:text-xl md:text-2xl text-center uppercase mb-4 sm:mb-6">
             Featured Games
           </h2>
           {isLoading ? (
-            <div className="text-pixel-light text-center text-sm">
+            <div className="text-pixel-light text-center text-xs sm:text-sm">
               Loading games...
             </div>
           ) : games.length === 0 ? (
-            <div className="text-pixel-light text-center text-sm">
+            <div className="text-pixel-light text-center text-xs sm:text-sm">
               No games found.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-5 w-full">
               {games.map((game) => (
                 <RetroShowcaseCard
                   key={game.id}
@@ -312,20 +328,20 @@ const ShowcasePage = () => {
         open={isInstructionsDialogOpen}
         onOpenChange={setIsInstructionsDialogOpen}
       >
-        <DialogContent className="bg-gradient-to-br from-pixel-navy to-pixel-dark/90 text-pixel-light border-4 border-pixel-teal/80 max-w-[90vw] sm:max-w-2xl p-6 sm:p-8 shadow-[4px_4px_0_#ff00ff] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-gradient-to-br from-pixel-navy to-pixel-dark/90 text-pixel-light border-4 border-pixel-teal/80 w-[95vw] max-w-[90vw] sm:max-w-2xl p-4 sm:p-6 shadow-[4px_4px_0_#ff00ff] max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-pixel-yellow font-pixel text-xl sm:text-2xl">
+            <DialogTitle className="text-pixel-yellow font-pixel text-lg sm:text-xl">
               How to Submit Your ARCADE Game
             </DialogTitle>
-            <DialogDescription className="text-pixel-light font-sans text-sm sm:text-base">
+            <DialogDescription className="text-pixel-light font-sans text-xs sm:text-sm">
               Follow these steps to prepare and submit your game. All
               submissions are subject to review, and only approved games will be
               showcased.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4 text-sm">
+          <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm">
             <div>
-              <h3 className="text-pixel-pink font-pixel text-base">
+              <h3 className="text-pixel-pink font-pixel text-sm sm:text-base">
                 1. Publish on GitHub
               </h3>
               <p className="text-pixel-light font-sans">
@@ -338,7 +354,7 @@ const ShowcasePage = () => {
               </p>
             </div>
             <div>
-              <h3 className="text-pixel-pink font-pixel text-base">
+              <h3 className="text-pixel-pink font-pixel text-sm sm:text-base">
                 2. Upload Images
               </h3>
               <p className="text-pixel-light font-sans">
@@ -348,7 +364,7 @@ const ShowcasePage = () => {
               </p>
             </div>
             <div>
-              <h3 className="text-pixel-pink font-pixel text-base">
+              <h3 className="text-pixel-pink font-pixel text-sm sm:text-base">
                 3. Complete the Form
               </h3>
               <p className="text-pixel-light font-sans">
@@ -363,7 +379,7 @@ const ShowcasePage = () => {
                 setIsInstructionsDialogOpen(false);
                 setIsUploadDialogOpen(true);
               }}
-              className="bg-pixel-yellow text-pixel-dark font-pixel text-base sm:text-lg px-6 py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors"
+              className="bg-pixel-yellow text-pixel-dark font-pixel text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors min-w-[44px] min-h-[44px]"
             >
               Continue to Form
             </Button>
@@ -373,32 +389,35 @@ const ShowcasePage = () => {
 
       {/* Upload Form Dialog */}
       <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
-        <DialogContent className="bg-gradient-to-br from-pixel-navy to-pixel-dark/90 text-pixel-light border-4 border-pixel-teal/80 max-w-[90vw] sm:max-w-2xl p-6 sm:p-8 shadow-[4px_4px_0_#ff00ff] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-gradient-to-br from-pixel-navy to-pixel-dark/90 text-pixel-light border-4 border-pixel-teal/80 w-[95vw] max-w-[90vw] sm:max-w-2xl p-4 sm:p-6 shadow-[4px_4px_0_#ff00ff] max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-pixel-yellow font-pixel text-xl sm:text-2xl">
+            <DialogTitle className="text-pixel-yellow font-pixel text-lg sm:text-xl">
               Submit Your ARCADE Game
             </DialogTitle>
-            <DialogDescription className="text-pixel-light font-sans text-sm sm:text-base">
+            <DialogDescription className="text-pixel-light font-sans text-xs sm:text-sm">
               Share your creation with the ARCADE community. All submissions are
               subject to review, and only approved games will be showcased.
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-3 sm:space-y-4"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-pixel-pink font-pixel text-sm">
+                      <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                         Game Name
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Cosmic Crusaders"
                           {...field}
-                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm"
+                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm"
                         />
                       </FormControl>
                       <FormMessage className="text-pixel-yellow text-xs" />
@@ -410,14 +429,14 @@ const ShowcasePage = () => {
                   name="creator"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-pixel-pink font-pixel text-sm">
+                      <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                         Creator Name
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Your name or handle"
                           {...field}
-                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm"
+                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm"
                         />
                       </FormControl>
                       <FormMessage className="text-pixel-yellow text-xs" />
@@ -430,14 +449,14 @@ const ShowcasePage = () => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-pixel-pink font-pixel text-sm">
+                    <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                       Description
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="A brief description of your game"
                         {...field}
-                        className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm"
+                        className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm"
                       />
                     </FormControl>
                     <FormMessage className="text-pixel-yellow text-xs" />
@@ -449,7 +468,7 @@ const ShowcasePage = () => {
                 name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-pixel-pink font-pixel text-sm">
+                    <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                       Game Category
                     </FormLabel>
                     <Select
@@ -457,7 +476,7 @@ const ShowcasePage = () => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm">
+                        <SelectTrigger className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm">
                           <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
                       </FormControl>
@@ -481,34 +500,34 @@ const ShowcasePage = () => {
                 name="githubUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-pixel-pink font-pixel text-sm">
+                    <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                       GitHub Repository URL
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="https://github.com/yourusername/your-repo"
                         {...field}
-                        className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm"
+                        className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm"
                       />
                     </FormControl>
                     <FormMessage className="text-pixel-yellow text-xs" />
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <FormField
                   control={form.control}
                   name="coverImage"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-pixel-pink font-pixel text-sm">
+                      <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                         Cover Image URL
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="https://raw.githubusercontent.com/.../cover.png"
                           {...field}
-                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm"
+                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm"
                         />
                       </FormControl>
                       <FormMessage className="text-pixel-yellow text-xs" />
@@ -520,14 +539,14 @@ const ShowcasePage = () => {
                   name="screenshots"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-pixel-pink font-pixel text-sm">
+                      <FormLabel className="text-pixel-pink font-pixel text-xs sm:text-sm">
                         Screenshots URLs
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="https://raw.githubusercontent.com/.../screenshot1.png,..."
                           {...field}
-                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-sm"
+                          className="bg-pixel-dark border-pixel-teal text-pixel-light font-sans text-xs sm:text-sm"
                         />
                       </FormControl>
                       <FormMessage className="text-pixel-yellow text-xs" />
@@ -538,7 +557,7 @@ const ShowcasePage = () => {
               <DialogFooter>
                 <Button
                   type="submit"
-                  className="bg-pixel-yellow text-pixel-dark font-pixel text-base sm:text-lg px-6 py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors"
+                  className="bg-pixel-yellow text-pixel-dark font-pixel text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors min-w-[44px] min-h-[44px]"
                 >
                   Submit Game
                 </Button>
@@ -551,44 +570,50 @@ const ShowcasePage = () => {
       {/* Game Details Dialog */}
       {selectedGame && (
         <Dialog open={isGameDialogOpen} onOpenChange={setIsGameDialogOpen}>
-          <DialogContent className="bg-gradient-to-br from-pixel-navy to-pixel-dark/90 text-pixel-light border-4 border-pixel-teal/80 max-w-[90vw] sm:max-w-2xl p-6 sm:p-8 shadow-[4px_4px_0_#ff00ff] max-h-[90vh] overflow-y-auto">
-            <DialogClose className="absolute top-2 right-2 text-pixel-light hover:text-pixel-yellow">
-              <X className="h-6 w-6" />
-            </DialogClose>
+          <DialogContent className="bg-gradient-to-br from-pixel-navy to-pixel-dark/90 text-pixel-light border-4 border-pixel-teal/80 w-[95vw] max-w-[90vw] sm:max-w-2xl p-4 sm:p-6 shadow-[4px_4px_0_#ff00ff] max-h-[85vh] overflow-y-auto">
+            <DialogClose className="absolute top-2 sm:top-2 right-2 sm:right-2 text-pixel-light hover:text-pixel-yellow"></DialogClose>
             <DialogHeader>
-              <DialogTitle className="text-pixel-yellow font-pixel text-xl sm:text-2xl flex items-center gap-2">
-                <span className="text-3xl">{selectedGame.icon}</span>
+              <DialogTitle className="text-pixel-yellow font-pixel text-lg sm:text-xl flex items-center gap-2">
+                <span className="text-2xl sm:text-3xl">
+                  {selectedGame.icon}
+                </span>
                 {selectedGame.name}
               </DialogTitle>
               <DialogDescription className="text-pixel-light">
                 <div className="flex items-center gap-2 text-pixel-pink">
-                  <User className="h-4 w-4" />
-                  <span className="font-pixel text-sm">
+                  <User className="h-3 sm:h-4 w-3 sm:w-4" />
+                  <span className="font-pixel text-xs sm:text-sm">
                     by {selectedGame.creator}
                   </span>
                 </div>
               </DialogDescription>
             </DialogHeader>
-            <div className="space-y-6">
-              <div className="relative">
+            <div className="space-y-4 sm:space-y-6">
+              <div
+                className="relative"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <img
                   src={selectedGame.screenshots[carouselIndex]}
                   alt={`${selectedGame.name} screenshot ${carouselIndex + 1}`}
-                  className="w-full h-48 sm:h-64 object-contain rounded-lg border-4 border-pixel-teal/80"
+                  className="w-full h-40 sm:h-64 object-contain rounded-lg border-4 border-pixel-teal/80"
                 />
                 <button
                   onClick={handlePrev}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-pixel-dark/80 text-pixel-yellow p-2 rounded-full hover:bg-pixel-yellow hover:text-pixel-dark"
+                  aria-label="Previous screenshot"
+                  className="absolute left-2 sm:left-2 top-1/2 -translate-y-1/2 bg-pixel-dark/80 text-pixel-yellow p-2 sm:p-3 rounded-full hover:bg-pixel-yellow hover:text-pixel-dark transition-colors min-w-[44px] min-h-[44px]"
                 >
-                  <ChevronLeft className="h-6 w-6" />
+                  <ChevronLeft className="h-5 sm:h-6 w-5 sm:w-6" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-pixel-dark/80 text-pixel-yellow p-2 rounded-full hover:bg-pixel-yellow hover:text-pixel-dark"
+                  aria-label="Next screenshot"
+                  className="absolute right-2 sm:right-2 top-1/2 -translate-y-1/2 bg-pixel-dark/80 text-pixel-yellow p-2 sm:p-3 rounded-full hover:bg-pixel-yellow hover:text-pixel-dark transition-colors min-w-[44px] min-h-[44px]"
                 >
-                  <ChevronRight className="h-6 w-6" />
+                  <ChevronRight className="h-5 sm:h-6 w-5 sm:w-6" />
                 </button>
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
+                <div className="absolute bottom-2 sm:bottom-2 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-2">
                   {selectedGame.screenshots.map((_, index) => (
                     <span
                       key={index}
@@ -602,19 +627,19 @@ const ShowcasePage = () => {
                 </div>
               </div>
               <div>
-                <p className="text-pixel-light font-sans text-sm sm:text-base mb-4">
+                <p className="text-pixel-light font-sans text-xs sm:text-base mb-3 sm:mb-4">
                   {selectedGame.description}
                 </p>
                 <Button
                   asChild
-                  className="bg-pixel-yellow text-pixel-dark font-pixel text-base sm:text-lg px-6 py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors"
+                  className="bg-pixel-yellow text-pixel-dark font-pixel text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 border-4 border-pixel-pink hover:bg-pixel-pink hover:text-pixel-yellow transition-colors min-w-[44px] min-h-[44px]"
                 >
                   <a
                     href={selectedGame.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Github className="mr-2 h-4 w-4" /> View on GitHub
+                    <FaGithub className="mr-2 h-6 w-6" /> View on GitHub
                   </a>
                 </Button>
               </div>

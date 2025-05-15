@@ -9,12 +9,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import ss1 from "/images/ss-1.png";
-import ss2 from "/images/ss-2.png";
-import ss3 from "/images/ss-3.png";
-import ss4 from "/images/ss-4.png";
-import ss5 from "/images/ss-5.png";
-
 const HomePage = () => {
   const [copied, setCopied] = useState(false);
 
@@ -620,11 +614,26 @@ make run`;
                 className="w-full"
               >
                 {[
-                  { src: ss1, alt: "Monaco Editor" },
-                  { src: ss2, alt: "Sprite Editor" },
-                  { src: ss3, alt: "Project Navigator" },
-                  { src: ss4, alt: "Game Preview" },
-                  { src: ss5, alt: "Debugging Tools" },
+                  {
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_1.png?token=GHSAT0AAAAAADB4UQOW4TAAEDQECZGFJAHO2BFVQ4Q",
+                    alt: "IDE Image",
+                  },
+                  {
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_2.png?token=GHSAT0AAAAAADB4UQOXVQYV2OXHQE6F2SFY2BFVQ7A",
+                    alt: "IDE Image",
+                  },
+                  {
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_3.png?token=GHSAT0AAAAAADB4UQOXI2L6XWO25VPKHZDE2BFVRBQ",
+                    alt: "IDE Image",
+                  },
+                  {
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_4.png?token=GHSAT0AAAAAADB4UQOWX5S2YIS4CKZI3RI42BFVRFA",
+                    alt: "IDE Image",
+                  },
+                  {
+                    src: "https://raw.githubusercontent.com/GeorgeET15/arcade-ide/refs/heads/master/screenshots/ide_5.png?token=GHSAT0AAAAAADB4UQOXAM6HRUCRYUGQKL2S2BFVRHA",
+                    alt: "IDE Image",
+                  },
                 ].map((image, index) => (
                   <SwiperSlide key={index}>
                     <div className="border-4 border-pixel-yellow">
@@ -660,6 +669,34 @@ make run`;
               </div>
             </div>
           </div>
+        </div>
+      </section>
+      {/* Open Source & Community Section */}
+      <section
+        id="open-source"
+        className="py-8 sm:py-10 md:py-14 bg-pixel-navy border-t-4 border-pixel-teal"
+      >
+        <div className="container px-2 sm:px-4 text-center">
+          <h2
+            className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 text-pixel-yellow font-pixel uppercase"
+            style={{ letterSpacing: "2px" }}
+          >
+            Open Source & Community Driven
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg text-pixel-light max-w-3xl mx-auto mb-4 sm:mb-6 font-sans">
+            ARCADE, Arcade-CLI, and Arcade IDE are fully open-source and free to
+            use. Join our vibrant community of developers to contribute ideas,
+            code, or feedback and help shape the future of retro 2D game
+            development!
+          </p>
+          <Link to="https://github.com/GeorgeET15/arcade-lib">
+            <Button
+              size="lg"
+              className="bg-pixel-yellow hover:bg-pixel-pink text-pixel-dark border-2 border-pixel-pink font-pixel rounded-none shadow-[0_3px_0_#FF7BDF] text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 min-w-[44px] min-h-[44px]"
+            >
+              Contribute on GitHub
+            </Button>
+          </Link>
         </div>
       </section>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaHeart } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -24,9 +24,19 @@ const Footer: React.FC = () => {
             ARCADE
           </a>
           {/* Made with Love */}
-          <span className="text-teal-400 text-xs sm:text-sm text-center">
-            Made with ❤️ in Kochi
+          <span className="text-teal-400 text-xs sm:text-sm text-center inline-flex items-center">
+            Made with{" "}
+            <a
+              href="https://georgeemmanuelthomas.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="The Creator"
+            >
+              <FaHeart className="w-3 h-3 sm:w-4 sm:h-4 text-pink-600 hover:text-yellow-400 transition-colors ml-2 mr-2 shake" />{" "}
+            </a>
+            in Kochi
           </span>
+
           {/* Social Links */}
           <div className="flex gap-4 sm:gap-6">
             <a
