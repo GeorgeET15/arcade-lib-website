@@ -273,11 +273,8 @@ const ShowcasePage = () => {
       <div className="scanlines pointer-events-none absolute inset-0"></div>
       <div className="z-10 w-full max-w-6xl mx-auto flex flex-col items-center">
         <div className="flex flex-col items-center mb-6 sm:mb-8 text-center">
-          <h1
-            className="text-pixel-yellow text-2xl sm:text-3xl md:text-4xl font-pixel drop-shadow-[0_4px_0px_rgb(0_0_0/0.5)] tracking-widest uppercase"
-            style={{ letterSpacing: "2px" }}
-          >
-            ARCADE SHOWCASE
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-4 font-pixel text-pixel-yellow drop-shadow-[2px_2px_0_#ff00ff] tracking-wide">
+            Arcade Showcase
           </h1>
           <p
             className="font-pixel text-pixel-light mt-1 text-xs sm:text-sm uppercase tracking-widest"

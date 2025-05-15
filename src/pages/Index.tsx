@@ -307,7 +307,7 @@ make run`;
                 Get Started
               </Button>
             </Link>
-            <Link to="/examples">
+            <Link to="/showcase">
               <Button
                 size="lg"
                 variant="secondary"

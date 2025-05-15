@@ -70,10 +70,11 @@ const Examples = () => {
       <div className="container py-8 px-2 sm:px-4 max-w-7xl">
         <div className="max-w-4xl mx-auto text-center mb-8 sm:mb-12">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-4 font-pixel text-pixel-yellow drop-shadow-[2px_2px_0_#ff00ff] tracking-wide">
-            Arcade Examples
+            Arcade Tutorials
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-pixel-light font-sans leading-relaxed">
-            Learn Arcade with setup guides and playable game demos
+            Learn Arcade with setup guides and playable game demos (for games
+            check showcase)
           </p>
         </div>
 
